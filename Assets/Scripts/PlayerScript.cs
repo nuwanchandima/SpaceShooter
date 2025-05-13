@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private float _speed = 5f; // Speed of the player
+    private float _speed = 7.5f; // Speed of the player
     private float _xRangeRight = 8.0f, _xRangeLeft = -8.0f; // X-axis range for player movement
     private float _yRangeTop = 0f, _yRangeBottom = -3.5f; // Y-axis range for player movement
 
