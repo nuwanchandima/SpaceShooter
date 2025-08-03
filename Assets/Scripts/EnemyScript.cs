@@ -6,10 +6,17 @@ public class EnemyScript : MonoBehaviour
     private float _speed = 5f; // Speed of the enemy
     private float _xRangeRight = 7.5f, _xRangeLeft = -7.5f; // X-axis range for enemy movement
     private float _yRangeTop = 8.5f, _yRangeBottom = -8.5f; // Y-axis range for enemy respawn
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+                                                            // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public AudioClip explosionSound; // Sound to play on collision
+    private AudioSource audioSource; // Audio source component
+
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>(); // Add AudioSource if it doesn't exist
+        }
     }
 
     // Update is called once per frame
@@ -27,8 +34,15 @@ public class EnemyScript : MonoBehaviour
     {
         print(target.name); // For testing purposes
         Debug.Log("Collided!"); // For testing purposes
+
+        // Play explosion sound if available
+        if (explosionSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(explosionSound); // Play the explosion sound
+        }
+
         //target.gameObject.GetComponent<SpriteRenderer>().material.color = Color.black; // Change the color of the laser to black when it collides with the enemy
-        Destroy(gameObject); // Destroy the enemy when it collides with the laser
-        Destroy(target.gameObject); // Destroy the laser when it collides with the enemy
+        Destroy(target.gameObject);
+        Destroy(gameObject, 0.1f); // Wait for sound to finish before destroying
     }
 }
