@@ -9,6 +9,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab; // Prefab for the laser object 
 
+    public AudioSource audioSource; // Audio source for playing sounds
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     {
         PlayerMovement(); // Call the PlayerMovement method every frame
         PlayerBound(); // Call the PlayerBound method every frame
-        playerShoot(); // Call the playerShoot method every frame
+        PlayerShoot(); // Call the playerShoot method every frame
 
 
     }
@@ -62,10 +64,12 @@ public class PlayerScript : MonoBehaviour
         transform.position = currentPosition;
     }
 
-    private void playerShoot()
+    private void PlayerShoot()
     {
+        // Check if the space key is pressed
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            audioSource.Play(); // Play the audio source sound when shooting
             // Call the Fire method when the space key is pressed
             print("Space key pressed"); // For testing purposes
             Vector3 currentPosition = transform.position;
